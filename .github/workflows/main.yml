@@ -1,0 +1,26 @@
+name: Bot Bacbo Elite 24h
+
+on:
+  push:
+    branches: [ principal ] # Notei que sua branch se chama 'principal' na imagem
+  schedule:
+    - cron: '0 */6 * * *' # Reinicia a cada 6 horas para manter o bot fresco
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar Bibliotecas
+        run: |
+          pip install -r requirements.txt
+
+      - name: Executar Bot
+        run: python bot_telegram.py # Use o nome exato do seu arquivo principal
